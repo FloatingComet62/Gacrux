@@ -19,25 +19,37 @@
 #define FILE_G 0x2020202020202020LL
 #define FILE_H 0x1010101010101010LL
 
+#define W_K 0
+#define W_Q 2
+#define W_R 4
+#define W_B 6
+#define W_N 8
+#define W_P 10
+
+#define B_K 1
+#define B_Q 3
+#define B_R 5
+#define B_B 7
+#define B_N 9
+#define B_P 11
+
 int main() {
-  uint64_t w_k = 0x0000000000000080LL;
-  uint64_t b_k = 0x8000000000000000LL;
-
-  uint64_t w_q = 0x0000000000000001LL;
-  uint64_t b_q = 0x0100000000000000LL;
-
-  uint64_t w_r = 0x0000000000000018LL;
-  uint64_t b_r = 0x1800000000000000LL;
-
-  uint64_t w_b = 0x0000000000000042LL;
-  uint64_t b_b = 0x4200000000000000LL;
-
-  uint64_t w_n = 0x0000000000000024LL;
-  uint64_t b_n = 0x2400000000000000LL;
-
-  uint64_t w_p = 0x000000000000FF00LL;
-  uint64_t b_p = 0x00FF000000000000LL;
-  // printf("Hello World %" PRIu64 "\n", bitboard);
+  // order -> w_k, b_k, w_q, b_q, w_r, b_r, w_b, b_b, w_n, b_n, w_p, b_p
+  uint64_t bitboard_data[12] = {
+    0x0000000000000080LL,
+    0x8000000000000000LL,
+    0x0000000000000001LL,
+    0x0100000000000000LL,
+    0x0000000000000018LL,
+    0x1800000000000000LL,
+    0x0000000000000042LL,
+    0x4200000000000000LL,
+    0x0000000000000024LL,
+    0x2400000000000000LL,
+    0x000000000000FF00LL,
+    0x00FF000000000000LL,
+  };
+  printf("Hello World %" PRIu64 "\n", bitboard_data[W_K]);
 
   return 0;
 }
