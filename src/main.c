@@ -1,55 +1,12 @@
-#include <stdio.h>
+#include "move_generator.h"
+#include "notation.h"
+
 #include <inttypes.h>
-
-#define RANK_1 0x00000000000000FFLL
-#define RANK_2 0x000000000000FF00LL
-#define RANK_3 0x0000000000FF0000LL
-#define RANK_4 0x00000000FF000000LL
-#define RANK_5 0x000000FF00000000LL
-#define RANK_6 0x0000FF0000000000LL
-#define RANK_7 0x00FF000000000000LL
-#define RANK_8 0xFF00000000000000LL
-
-#define FILE_A 0x0808080808080808LL
-#define FILE_B 0x0404040404040404LL
-#define FILE_C 0x0202020202020202LL
-#define FILE_D 0x0101010101010101LL
-#define FILE_E 0x8080808080808080LL
-#define FILE_F 0x4040404040404040LL
-#define FILE_G 0x2020202020202020LL
-#define FILE_H 0x1010101010101010LL
-
-#define W_K 0
-#define W_Q 2
-#define W_R 4
-#define W_B 6
-#define W_N 8
-#define W_P 10
-
-#define B_K 1
-#define B_Q 3
-#define B_R 5
-#define B_B 7
-#define B_N 9
-#define B_P 11
+#include <stdio.h>
 
 int main() {
-  // order -> w_k, b_k, w_q, b_q, w_r, b_r, w_b, b_b, w_n, b_n, w_p, b_p
-  uint64_t bitboard_data[12] = {
-    0x0000000000000080LL,
-    0x8000000000000000LL,
-    0x0000000000000001LL,
-    0x0100000000000000LL,
-    0x0000000000000018LL,
-    0x1800000000000000LL,
-    0x0000000000000042LL,
-    0x4200000000000000LL,
-    0x0000000000000024LL,
-    0x2400000000000000LL,
-    0x000000000000FF00LL,
-    0x00FF000000000000LL,
-  };
-  printf("Hello World %" PRIu64 "\n", bitboard_data[W_K]);
+  Board_t board = N_board("rnbqkbnr/ppp1p1pp/8/3pPp2/8/8/PPPP1PPP/RNBQKBNR w KQkq f6 0 3");
+  // Moves_t moves = MG_generatePawnMoves(N_square("a2"), &board);
 
   return 0;
 }

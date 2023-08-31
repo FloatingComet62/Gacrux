@@ -5,6 +5,6 @@ all: $(src)
 	make build
 	make run
 build: $(src)
-	g++ $(src) -o $(out)
+	gcc $(src) -o $(out)
 run:
 	$(out)

@@ -1,33 +1,30 @@
-typedef enum {
-  PAWN,
-  KNIGHT,
-  BISHOP,
-  ROOK,
-  QUEEN,
-  KING
-} ePiece_t;
+#ifndef MOVE_H
+#define MOVE_H
 
-typedef enum {
-  WHITE,
-  BLACK
-} ePlayer_t;
+#include "player.h"
+#include "piece.h"
 
 typedef enum {
   /// Promote to Queen
-  PROMOTE_Q,
+  PROMOTE_Q   = 0b00000001,
   /// Promote to Rook
-  PROMOTE_R,
+  PROMOTE_R   = 0b00000010,
   /// Promote to Bishop
-  PROMOTE_B,
+  PROMOTE_B   = 0b00000100,
   /// Promote to Knight
-  PROMOTE_N,
+  PROMOTE_N   = 0b00001000,
 
   /// Castling Kingside
-  CASTLING_K,
+  CASTLING_K  = 0b00010000,
   /// Castling Queenside
-  CASTLING_Q,
+  CASTLING_Q  = 0b00100000,
 
-  EN_PASSANT
+  // Google En Passant
+  // NOTE: Does require the capture flag
+  EN_PASSANT  = 0b01000000,
+
+  // Capturing of a piece
+  CAPTURE     = 0b10000000
 } eFlag_t;
 
 /// # Move
@@ -37,9 +34,22 @@ typedef enum {
 /// * `player` - The player that made that move
 /// * `flag` - Any addition information about the move
 typedef struct {
-  uint8_t initialSquare;
-  uint8_t finalSquare;
+  uint8_t initial_square;
+  uint8_t final_square;
   ePiece_t piece;
-  ePlayer_t player;
+  Player_t player;
   eFlag_t flag;
 } Move_t;
+
+Move_t M_init(
+  uint8_t initial_square,
+  uint8_t final_square,
+  ePiece_t piece,
+  Player_t player,
+  eFlag_t flag
+);
+
+/// Convert the move into a string (mainly for printing purposes)
+void M_print(Move_t* move);
+
+#endif
