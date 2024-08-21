@@ -4,6 +4,8 @@ const BoardData = @import("board.zig");
 const Piece = BoardData.Piece;
 const PiecePresentable = BoardData.PiecePresentable;
 const Board = BoardData.Board;
+const Square = BoardData.Square;
+const Move = BoardData.Move;
 
 export fn add(a: i32, b: i32) i32 {
     return a + b;
@@ -37,11 +39,11 @@ test "Pieces alignment" {
 
 test "Starting position" {
     const board = Board.starting_position();
-    try testing.expect(board.get(.E, ._1).? == .W_KING);
-    try testing.expect(board.get(.B, ._8).? == .B_KNIGHT);
-    try testing.expect(board.get(.F, ._7).? == .B_PAWN);
-    try testing.expect(board.get(.H, ._1).? == .W_CASTLEABLE_ROOK);
-    try testing.expect(board.get(.H, ._8).? == .B_CASTLEABLE_ROOK);
+    try testing.expect(board.get(Square.from_str("e1").?).? == .W_KING);
+    try testing.expect(board.get(Square.from_str("b8").?).? == .B_KNIGHT);
+    try testing.expect(board.get(Square.from_str("f7").?).? == .B_PAWN);
+    try testing.expect(board.get(Square.from_str("h1").?).? == .W_CASTLEABLE_ROOK);
+    try testing.expect(board.get(Square.from_str("h8").?).? == .B_CASTLEABLE_ROOK);
 }
 
 test "Piece Position Pickup" {
@@ -59,4 +61,24 @@ test "Bitboard Generation" {
     }
     try testing.expect(board.generate_bitboards()[2] == 0b10000001);
     try testing.expect(board.generate_bitboards()[4] == 0b01000010);
+}
+
+test "Seralization" {
+    try testing.expect(Square.from_str("a1").?.is_equal(Square.init(.A, ._1)));
+    try testing.expect(Square.from_str("A1").?.is_equal(Square.init(.A, ._1)));
+    try testing.expect(Square.from_str("h4").?.is_equal(Square.init(.H, ._4)));
+    try testing.expect(Square.from_str("b5").?.is_equal(Square.init(.B, ._5)));
+    try testing.expect(Square.from_str("j4") == null);
+    try testing.expect(Square.from_str("a9") == null);
+    try testing.expect(Square.from_str("k9") == null);
+
+    try testing.expect(Move.from_str("a1a4").?.is_equal(Move.init(
+        Square.init(.A, ._1),
+        Square.init(.A, ._4),
+    )));
+    try testing.expect(Move.from_str("a1b3").?.is_equal(Move.init(
+        Square.init(.A, ._1),
+        Square.init(.B, ._3),
+    )));
+    try testing.expect(Move.from_str("a1b9") == null);
 }
